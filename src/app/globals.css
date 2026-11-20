@@ -1,26 +1,411 @@
 @import "tailwindcss";
 
+/* ============================================================
+   PRIFYA BRAND TOKENS
+   Tailwind v4 • All values locked per blueprint
+   JANII G: Colors/radius/shadow change karne hon to yahan se
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ---- Backgrounds (60-30-10 ratio) ---- */
+  --prifya-bg-primary: #FAF9F6;      /* Alabaster — 60% */
+  --prifya-bg-secondary: #EEF2EE;    /* Sage Mist — 25% */
+  --prifya-bg-elevated: #FFFFFF;     /* Drawers / Modals */
+
+  /* ---- Brand Greens — 10% ---- */
+  --prifya-green: #1B3B2B;
+  --prifya-green-hover: #132B1F;
+  --prifya-green-soft: #2C5440;
+
+  /* ---- Amber — 5% (NEVER for text; use amber-text) ---- */
+  --prifya-amber: #C68B59;
+  --prifya-amber-light: #F7EFE6;
+  --prifya-amber-text: #8C582B;      /* WCAG AA on alabaster (4.5:1+) */
+
+  /* ---- Text ---- */
+  --prifya-text-main: #1A1A1A;
+  --prifya-text-muted: #5A655E;
+  --prifya-text-inverse: #FAF9F6;
+
+  /* ---- Borders ---- */
+  --prifya-border: #DCE3DC;
+  --prifya-border-strong: #B8C4B8;
+
+  /* ---- Semantic states ---- */
+  --prifya-success: #2E6B4B;
+  --prifya-error: #B23A2E;
+  --prifya-warning: #A86B1E;
+
+  /* ---- Overlay ---- */
+  --prifya-overlay: rgba(26, 26, 26, 0.45);
+
+  /* ---- Shadows (green-tinted, never harsh black) ---- */
+  --prifya-shadow-soft: 0 8px 24px -8px rgba(27, 59, 43, 0.18);
+  --prifya-shadow-elevated: 0 16px 40px -12px rgba(27, 59, 43, 0.24);
+
+  /* ---- Radius ---- */
+  --prifya-radius-btn: 0.5rem;
+  --prifya-radius-card: 0.75rem;
+  --prifya-radius-image: 0.75rem;
+  --prifya-radius-pill: 9999px;
+
+  /* ---- Motion tokens ---- */
+  --prifya-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --prifya-duration-fast: 150ms;
+  --prifya-duration-base: 300ms;
+  --prifya-duration-slow: 600ms;
+
+  /* ---- Typography (fonts loaded in layout.tsx) ---- */
+  --font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-body: var(--font-jakarta), "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* ============================================================
+   TAILWIND v4 THEME MAPPING
+   Iske bina bg-brand-*, text-brand-*, shadow-brand-* utilities
+   kaam nahi karengi. Yeh COMPLETE mapping hai.
+   ============================================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors → bg-brand-bg, text-brand-green, etc. */
+  --color-brand-bg:          var(--prifya-bg-primary);
+  --color-brand-surface:     var(--prifya-bg-secondary);
+  --color-brand-elevated:    var(--prifya-bg-elevated);
+
+  --color-brand-green:       var(--prifya-green);
+  --color-brand-green-dark:  var(--prifya-green-hover);
+  --color-brand-green-soft:  var(--prifya-green-soft);
+
+  --color-brand-amber:       var(--prifya-amber);
+  --color-brand-amber-light: var(--prifya-amber-light);
+  --color-brand-amber-text:  var(--prifya-amber-text);
+
+  --color-brand-ink:         var(--prifya-text-main);
+  --color-brand-muted:       var(--prifya-text-muted);
+  --color-brand-inverse:     var(--prifya-text-inverse);
+
+  --color-brand-border:        var(--prifya-border);
+  --color-brand-border-strong: var(--prifya-border-strong);
+
+  --color-brand-success:     var(--prifya-success);
+  --color-brand-error:       var(--prifya-error);
+  --color-brand-warning:     var(--prifya-warning);
+  --color-brand-overlay:     var(--prifya-overlay);
+
+  /* Fonts → font-serif, font-sans */
+  --font-serif: var(--font-heading);
+  --font-sans:  var(--font-body);
+
+  /* Radius → rounded-brand-btn, rounded-brand-card */
+  --radius-brand-btn:   var(--prifya-radius-btn);
+  --radius-brand-card:  var(--prifya-radius-card);
+  --radius-brand-image: var(--prifya-radius-image);
+  --radius-brand-pill:  var(--prifya-radius-pill);
+
+  /* Shadows → shadow-brand-soft */
+  --shadow-brand-soft:     var(--prifya-shadow-soft);
+  --shadow-brand-elevated: var(--prifya-shadow-elevated);
+
+  /* Easing → ease-brand */
+  --ease-brand: var(--prifya-ease);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   BASE LAYER — element defaults only
+   IMPORTANT: yeh @layer base mein hai taake utilities jeet sakein
+   (e.g. <h2 className="text-white"> kaam karega)
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+    background-color: var(--prifya-bg-primary);
+    color: var(--prifya-text-main);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip; /* ← YEH ADD KAREIN — horizontal scroll fix */
+  }
+
+    body {
+    background-color: var(--prifya-bg-primary);
+    color: var(--prifya-text-main);
+    font-family: var(--font-body);
+    overflow-x: clip; /* ← hidden ki jagah clip (sticky-safe) */
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    color: var(--prifya-green);
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  a { color: inherit; text-decoration: none; }
+
+  button { font-family: inherit; cursor: pointer; }
+
+  :focus-visible {
+    outline: 2px solid var(--prifya-green);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--prifya-green);
+    color: var(--prifya-bg-primary);
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--prifya-bg-secondary); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--prifya-border-strong);
+    border-radius: var(--prifya-radius-pill);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--prifya-green-soft); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================
+   COMPONENT LAYER — Prifya reusable classes
+   Utilities inhe override kar sakti hain (rounded-full, text-white)
+   ============================================================ */
+@layer components {
+  /* ---- Buttons ---- */
+  .btn-prifya-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold;
+    background-color: var(--prifya-green);
+    color: var(--prifya-text-inverse);
+    font-family: var(--font-body);
+    border-radius: var(--prifya-radius-btn);
+    transition:
+      background-color var(--prifya-duration-base) var(--prifya-ease),
+      transform var(--prifya-duration-fast) var(--prifya-ease),
+      box-shadow var(--prifya-duration-base) var(--prifya-ease);
+  }
+  .btn-prifya-primary:hover {
+    background-color: var(--prifya-green-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--prifya-shadow-soft);
+  }
+  .btn-prifya-primary:active { transform: scale(0.98); }
+  .btn-prifya-primary:disabled {
+    opacity: 0.5; cursor: not-allowed;
+    transform: none; box-shadow: none;
+  }
+
+  .btn-prifya-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold;
+    background-color: transparent;
+    color: var(--prifya-green);
+    border: 1px solid var(--prifya-green);
+    border-radius: var(--prifya-radius-btn);
+    transition: all var(--prifya-duration-base) var(--prifya-ease);
+  }
+  .btn-prifya-outline:hover {
+    background-color: var(--prifya-green);
+    color: var(--prifya-text-inverse);
+  }
+
+  .btn-prifya-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 font-semibold;
+    background-color: transparent;
+    color: var(--prifya-green);
+    border-radius: var(--prifya-radius-btn);
+    transition: background-color var(--prifya-duration-base) var(--prifya-ease);
+  }
+  .btn-prifya-ghost:hover { background-color: var(--prifya-bg-secondary); }
+
+  /* ---- Cards ---- */
+  .card-prifya {
+    background-color: var(--prifya-bg-elevated);
+    border: 1px solid var(--prifya-border);
+    border-radius: var(--prifya-radius-card);
+    box-shadow: var(--prifya-shadow-soft);
+  }
+  .card-prifya-soft {
+    background-color: var(--prifya-bg-secondary);
+    border: 1px solid var(--prifya-border);
+    border-radius: var(--prifya-radius-card);
+  }
+
+  /* ---- Badges ---- */
+  .badge-prifya-amber {
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold uppercase tracking-wide;
+    background-color: var(--prifya-amber-light);
+    color: var(--prifya-amber-text);
+    border: 1px solid rgba(198, 139, 89, 0.35);
+    border-radius: var(--prifya-radius-pill);
+  }
+  .badge-prifya-green {
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold uppercase tracking-wide;
+    background-color: var(--prifya-green);
+    color: var(--prifya-text-inverse);
+    border-radius: var(--prifya-radius-pill);
+  }
+  .badge-prifya-soft {
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold;
+    background-color: var(--prifya-bg-secondary);
+    color: var(--prifya-green);
+    border: 1px solid var(--prifya-border);
+    border-radius: var(--prifya-radius-pill);
+  }
+
+  /* ---- Inputs ---- */
+  .input-prifya {
+    @apply w-full px-4 py-3 text-base;
+    background-color: var(--prifya-bg-elevated);
+    color: var(--prifya-text-main);
+    border: 1px solid var(--prifya-border-strong);
+    border-radius: var(--prifya-radius-btn);
+    font-family: var(--font-body);
+    transition:
+      border-color var(--prifya-duration-fast) var(--prifya-ease),
+      box-shadow var(--prifya-duration-fast) var(--prifya-ease);
+  }
+  .input-prifya:focus {
+    outline: none;
+    border-color: var(--prifya-green);
+    box-shadow: 0 0 0 3px rgba(27, 59, 43, 0.12);
+  }
+  .input-prifya::placeholder {
+    color: var(--prifya-text-muted);
+    opacity: 0.7;
+  }
+  .input-prifya[aria-invalid="true"] {
+    border-color: var(--prifya-error);
+  }
+
+  /* ---- Layout helpers ---- */
+  .container-prifya {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) {
+    .container-prifya { padding-inline: 40px; }
+  }
+
+  .section-prifya { padding-block: 72px; }
+  @media (min-width: 768px) {
+    .section-prifya { padding-block: 120px; }
+  }
+
+  /* ---- Skeleton shimmer ---- */
+  .skeleton-prifya {
+    background: linear-gradient(
+      90deg,
+      var(--prifya-bg-secondary) 0%,
+      var(--prifya-bg-primary) 50%,
+      var(--prifya-bg-secondary) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.6s var(--prifya-ease) infinite;
+    border-radius: var(--prifya-radius-card);
+  }
+  @keyframes skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
 }
+
+/* ============================================================
+   UTILITIES — extra Prifya utilities
+   ============================================================ */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  .animate-reveal {
+    animation: reveal 500ms var(--prifya-ease) both;
+  }
+
+
+    /* === 1. Hero h1 — LCP-safe line-up (paints ~50ms, settles 900ms) === */
+  .animate-line-up {
+    animation: line-up 900ms var(--prifya-ease) both;
+  }
+  @keyframes line-up {
+    from { opacity: 0.01; transform: translateY(28px); filter: blur(6px); }
+    to   { opacity: 1;    transform: translateY(0);   filter: blur(0); }
+  }
+
+  /* === 2. Subline blur-in === */
+  .animate-blur-in {
+    animation: blur-in 1000ms var(--prifya-ease) both;
+  }
+  @keyframes blur-in {
+    from { opacity: 0;    filter: blur(8px); transform: translateY(8px); }
+    to   { opacity: 1;    filter: blur(0);   transform: translateY(0); }
+  }
+
+  /* === 3. Ambient float (Hero bottle — saans leta hai) === */
+  .animate-ambient-float {
+    animation: ambient-float 6s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes ambient-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-8px) scale(1.015); }
+  }
+
+  /* === 4. Heading reveal (fade + scale + settle — clip-safe for multi-line) === */
+  .animate-heading-reveal {
+    animation: heading-reveal 800ms var(--prifya-ease) both;
+  }
+  @keyframes heading-reveal {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+
+  /* ---- Inverted button (for dark green sections) ---- */
+  .btn-prifya-inverse {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold;
+    background-color: var(--prifya-bg-primary);
+    color: var(--prifya-green);
+    border-radius: var(--prifya-radius-btn);
+    transition:
+      background-color var(--prifya-duration-base) var(--prifya-ease),
+      transform var(--prifya-duration-fast) var(--prifya-ease),
+      box-shadow var(--prifya-duration-base) var(--prifya-ease);
+  }
+  .btn-prifya-inverse:hover {
+    background-color: var(--prifya-amber-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -8px rgba(198, 139, 89, 0.55);
+  }
+  .btn-prifya-inverse:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .btn-prifya-inverse-outline {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold;
+    background-color: transparent;
+    color: var(--prifya-text-inverse);
+    border: 1px solid rgba(250, 249, 246, 0.35);
+    border-radius: var(--prifya-radius-btn);
+    transition: all var(--prifya-duration-base) var(--prifya-ease);
+  }
+  .btn-prifya-inverse-outline:hover {
+    background-color: rgba(250, 249, 246, 0.08);
+    border-color: var(--prifya-text-inverse);
+  }
