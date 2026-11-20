@@ -366,3 +366,28 @@ export const placeholderFooter = {
     backToTop: "Back to top",
   },
 } as const;
+
+
+
+// ------------------------------------------------------------
+// 404 NOT FOUND
+// ------------------------------------------------------------
+export const placeholderNotFound = {
+  eyebrow: "Error 404",
+  headingLines: ["This path has", "lost its way."],
+  subline:
+    "The page you're looking for doesn't exist, or may have moved somewhere new.",
+  primaryCta: { label: "Back to Home", href: "/" },
+  secondaryCta: { label: "Browse Shop", href: "/shop" },
+  suggestionsLabel: "Maybe you were looking for",
+  suggestions: [
+    { label: "Hair Serum", href: `/product/${placeholderProduct.slug}` },
+    { label: "Track Order", href: "/track" },
+    { label: "FAQ", href: "/faq" },
+    { label: "Contact", href: "/contact" },
+  ],
+  whatsappCta: {
+    text: "Or message us on",
+    href: "https://wa.me/923000000000", // JANII G: real number
+  },
+} as const;
