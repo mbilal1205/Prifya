@@ -3,7 +3,13 @@
 import Link from "next/link";
 import Image from "next/image"; // <-- Image import kiya
 import { useEffect, useState } from "react";
+import { useCartStore } from "@/stores/cart-store";
 import { placeholderNav, placeholderProduct } from "@/lib/placeholder-data";
+
+
+
+
+
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -84,11 +90,12 @@ export function Header() {
 }
 
 function CartButton() {
-  // JANII G: PLACEHOLDER — Zustand cart-store ke saath real hoga
-  const cartCount = 0;
+  const cartCount = useCartStore((state) => state.items.reduce((acc, item) => acc + item.qty, 0));
+  const openCart = useCartStore((state) => state.openCart);
+
   return (
-    <Link
-      href="/cart"
+    <button
+      onClick={openCart}
       className="relative flex h-10 w-10 items-center justify-center rounded-full text-brand-green transition-colors hover:bg-brand-surface"
       aria-label={`Cart${cartCount > 0 ? `, ${cartCount} items` : ", empty"}`}
     >
@@ -115,6 +122,6 @@ function CartButton() {
           {cartCount > 9 ? "9+" : cartCount}
         </span>
       )}
-    </Link>
+    </button>
   );
 }

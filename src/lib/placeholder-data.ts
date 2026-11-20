@@ -391,3 +391,63 @@ export const placeholderNotFound = {
     href: "https://wa.me/923000000000", // JANII G: real number
   },
 } as const;
+
+
+
+
+
+// ------------------------------------------------------------
+// SHOP PAGE
+// ------------------------------------------------------------
+export const placeholderShop = {
+  eyebrow: "The Collection",
+  heading: "One serum, thoughtfully made.",
+  subline:
+    "We chose to launch with a single product so we could focus on quality, clear labelling, and honest communication. New additions will follow the same standard.",
+  productBadge: "100ml • Hair Serum",
+} as const;
+
+
+
+
+// ------------------------------------------------------------
+// PRODUCT DETAIL PAGE (PDP)
+// ------------------------------------------------------------
+export const placeholderProductDetails = {
+  benefits: [
+    "Nourishes dry, tired strands",
+    "Tames frizz and flyaways",
+    "Adds a natural, healthy shine",
+  ],
+  trustBadges: [
+    "Free delivery across Pakistan",
+    "Cash on Delivery",
+    "Real confirmation call",
+  ],
+  accordions: [
+    {
+      title: "Description",
+      content: "A lightweight, plant-based hair serum designed for everyday care. It absorbs quickly without leaving a greasy residue, making your hair feel soft, smooth, and manageable. Suitable for all hair types, especially dry and frizzy hair.",
+    },
+    {
+      title: "Key Ingredients",
+      content: "Argan Oil (nourishment), Jojoba Oil (scalp balance), Vitamin E (protection), Rosemary Extract (strength).",
+    },
+    {
+      title: "How to Use",
+      content: "Apply 2–3 drops to clean, damp hair. Warm between palms and distribute evenly through the mid-lengths and ends. Do not rinse. Use daily or as needed.",
+    },
+    {
+      title: "Full Ingredients (INCI)",
+      content: "Aqua, Glycerin, Argania Spinosa (Argan) Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Tocopherol (Vitamin E), Rosmarinus Officinalis (Rosemary) Leaf Extract, Panthenol, Sodium Hyaluronate, Phenoxyethanol, Ethylhexylglycerin, Parfum.",
+    },
+    {
+      title: "Suitable for / Avoid if",
+      content: "Suitable for all hair types. Avoid if you have a known allergy to any of the listed ingredients. Patch test on a small area of skin before first use.",
+    },
+    {
+      title: "Shipping & Returns",
+      content: "Free delivery across Pakistan. Cash on Delivery available. Opened or used bottles cannot be returned for change of mind. Damaged or defective items will be replaced.",
+    },
+  ],
+} as const;

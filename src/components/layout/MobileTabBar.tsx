@@ -56,7 +56,7 @@ export function MobileTabBar() {
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
 
-  if (HIDDEN_ROUTES.some((r) => pathname.startsWith(r))) return null;
+    if (HIDDEN_ROUTES.some((r) => pathname.startsWith(r))) return null;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
