@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image"; // <-- Image import kiya
 import { useEffect, useState } from "react";
 import { placeholderNav, placeholderProduct } from "@/lib/placeholder-data";
 
@@ -24,12 +25,17 @@ export function Header() {
     >
       {/* Desktop */}
       <div className="hidden lg:block">
-        <div className="container-prifya flex h-16 items-center justify-between gap-6">
-          <Link
-            href="/"
-            className="font-serif text-2xl font-semibold tracking-tight text-brand-green"
-          >
-            PRIFYA
+        <div className="container-prifya flex h-20 items-center justify-between gap-6">
+          {/* Logo — Desktop */}
+          <Link href="/" className="flex shrink-0 items-center" aria-label="Prifya Home">
+            <Image
+              src="/logo.png" // JANII G: Agar extension alag hai (jpg/webp), to yahan change karein
+              alt="Prifya Logo"
+              width={160}
+              height={50}
+              priority // LCP fast load
+              className="h-10 w-auto object-contain mix-blend-multiply"
+            />
           </Link>
 
           <nav aria-label="Primary" className="flex items-center gap-8">
@@ -58,12 +64,17 @@ export function Header() {
 
       {/* Mobile top bar */}
       <div className="lg:hidden">
-        <div className="container-prifya flex h-14 items-center justify-between">
-          <Link
-            href="/"
-            className="font-serif text-xl font-semibold tracking-tight text-brand-green"
-          >
-            PRIFYA
+        <div className="container-prifya flex h-16 items-center justify-between">
+          {/* Logo — Mobile */}
+          <Link href="/" className="flex shrink-0 items-center" aria-label="Prifya Home">
+            <Image
+              src="/logo.png" // JANII G: Agar extension alag hai, to yahan change karein
+              alt="Prifya Logo"
+              width={120}
+              height={38}
+              priority
+              className="h-8 w-auto object-contain mix-blend-multiply"
+            />
           </Link>
           <CartButton />
         </div>

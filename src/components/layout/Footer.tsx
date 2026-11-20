@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image"; // <-- Image import kiya
 import { useState, useEffect } from "react";
 import { placeholderFooter } from "@/lib/placeholder-data";
 
@@ -13,7 +14,7 @@ export function Footer() {
   const backToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-useEffect(() => {
+  useEffect(() => {
     // Browser par load hone ke baad current saal update ho jayega
     setYear(new Date().getFullYear());
   }, []);
@@ -23,11 +24,15 @@ useEffect(() => {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Brand block */}
           <div className="lg:col-span-4">
-            <Link
-              href="/"
-              className="font-serif text-2xl font-semibold tracking-tight text-brand-green"
-            >
-              PRIFYA
+            <Link href="/" className="inline-flex items-center" aria-label="Prifya Home">
+              {/* Logo — Footer */}
+              <Image
+                src="/logo.png" // JANII G: Agar extension alag hai, to yahan change karein
+                alt="Prifya Logo"
+                width={140}
+                height={44}
+                className="h-10 w-auto object-contain mix-blend-multiply"
+              />
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-brand-muted">
               {placeholderFooter.tagline}
@@ -185,9 +190,7 @@ useEffect(() => {
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col gap-3 border-t border-brand-border pt-6 text-xs text-brand-muted sm:flex-row sm:items-center sm:justify-between lg:mt-14">
           <p>
-            ©{" "}
-            <span>{year}</span>{" "}
-            {placeholderFooter.bottom.copyright}
+            © <span>{year}</span> {placeholderFooter.bottom.copyright}
           </p>
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline">
